@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 import torch
 
 from embedding_space_evaluator import EmbeddingSpaceEvaluator
@@ -18,28 +19,68 @@ def run_fgd(fgd_evaluator, gt_data, test_data):
     return fgd_on_feat, fdg_on_raw
 
 
-def exp(n_frames):
+def exp_base(chunk_len):
     # AE model
-    ae_path = f'output/model_checkpoint_{n_frames}.bin'
-    fgd_evaluator = EmbeddingSpaceEvaluator(ae_path, n_frames, device)
+    ae_path = f'output/model_checkpoint_{chunk_len}.bin'
+    fgd_evaluator = EmbeddingSpaceEvaluator(ae_path, chunk_len, device)
 
     # load GT data
-    gt_data = make_tensor('data/GroundTruth', n_frames).to(device)
+    gt_data = make_tensor('data/GroundTruth', chunk_len).to(device)
 
     # load generated data
     generated_data_path = 'data'
     folders = sorted([f.path for f in os.scandir(generated_data_path) if f.is_dir() and 'Cond_' in f.path])
 
-    print(f'----- EXP (n_frames: {n_frames}) -----')
-    print('FGD on feature space and raw data space')
+    print(f'----- Experiment (motion chunk length: {chunk_len}) -----')
+    print('FGDs on feature space and raw data space')
     for folder in folders:
-        test_data = make_tensor(folder, n_frames).to(device)
+        test_data = make_tensor(folder, chunk_len).to(device)
         fgd_on_feat, fgd_on_raw = run_fgd(fgd_evaluator, gt_data, test_data)
-        print(f'{os.path.basename(folder)}: {fgd_on_feat:6.3f}, {fgd_on_raw:6.3f}')
+        print(f'{os.path.basename(folder)}: {fgd_on_feat:8.3f}, {fgd_on_raw:8.3f}')
     print()
 
 
+def exp_per_seq(chunk_len, stride=1):
+    n_test_seq = 10
+    systems = ['BA', 'BT', 'SA', 'SB', 'SC', 'SD', 'SE']
+
+    # AE model
+    ae_path = f'output/model_checkpoint_{chunk_len}.bin'
+    fgd_evaluator = EmbeddingSpaceEvaluator(ae_path, chunk_len, device)
+
+    # run
+    print(f'----- Experiment (motion chunk length: {chunk_len}, stride: 1) -----')
+    print('FGDs on feature space and raw data space for each system and each test speech sequence')
+    for system_name in systems:
+        results = []
+        for i in range(n_test_seq):
+            name = f'TestSeq{i+1:03d}'
+
+            # load GT data
+            gt_data = make_tensor(os.path.join('data/GroundTruth', name + '.npz'), chunk_len, stride=stride)
+            gt_data = gt_data.to(device)
+            # print(gt_data.shape)
+
+            # load generated data
+            test_data = make_tensor(os.path.join(f'data/Cond_{system_name}', name + '.npz'), chunk_len, stride=stride)
+            test_data = test_data.to(device)
+            # print(test_data.shape)
+
+            # calculate fgd
+            fgd_on_feat, fgd_on_raw = run_fgd(fgd_evaluator, gt_data, test_data)
+            print(f'Cond_{system_name} {name}: {fgd_on_feat:8.3f}, {fgd_on_raw:8.3f}')
+            results.append([fgd_on_feat, fgd_on_raw])
+        results = np.array(results)
+        print(f'Cond_{system_name} M=({np.mean(results[:, 0])}, {np.mean(results[:, 1])}), SD=({np.std(results[:, 0])}, {np.std(results[:, 1])})')
+
+
 if __name__ == '__main__':
-    exp(30)
-    exp(60)
-    exp(90)
+    # calculate fgd per system
+    # exp_base(30)
+    exp_base(60)
+    # exp_base(90)
+
+    # calculate fgd per system per test speech sequence
+    # exp_per_seq(30, stride=1)
+    exp_per_seq(60, stride=1)
+    # exp_per_seq(90, stride=1)

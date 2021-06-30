@@ -59,7 +59,7 @@ def train_iter(target_data, net, optim):
     return ret_dict
 
 
-def make_tensor(path, n_frames):
+def make_tensor(path, n_frames, stride=None):
     mean_vec = np.array([  0.4546838,  21.7154182,  -0.9253521,   1.0481254,  30.1385837,
                            0.3579833,   1.7905287,  38.52385  ,   1.6368418,   2.6107317,
                            49.0982409,   4.4734471,   3.1735519,  55.6535274,   6.7887565,
@@ -79,12 +79,17 @@ def make_tensor(path, n_frames):
                           3.7647275,  4.9868833,  7.7716174,  9.3219174, 10.0696823,
                           17.331519 , 11.2074617])
 
-    files = glob.glob(os.path.join(path, '*.npz'))
+    if os.path.isdir(path):
+        files = glob.glob(os.path.join(path, '*.npz'))
+    else:
+        files = [path]
+
     samples = []
+    stride = n_frames // 2 if stride is None else stride
     for file in files:
         data = np.load(file)
         data = data['clips']
-        for i in range(0, len(data) - n_frames, n_frames//2):
+        for i in range(0, len(data) - n_frames, stride):
             sample = data[i:i+n_frames]
             sample = (sample - mean_vec) / std_vec
             samples.append(sample)
