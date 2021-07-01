@@ -49,7 +49,7 @@ def exp_per_seq(chunk_len, stride=1):
     fgd_evaluator = EmbeddingSpaceEvaluator(ae_path, chunk_len, device)
 
     # run
-    print(f'----- Experiment (motion chunk length: {chunk_len}, stride: 1) -----')
+    print(f'----- Experiment (motion chunk length: {chunk_len}, stride: {stride}) -----')
     print('FGDs on feature space and raw data space for each system and each test speech sequence')
     for system_name in systems:
         results = []
