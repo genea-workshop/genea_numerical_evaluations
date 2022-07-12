@@ -1,7 +1,6 @@
 # GENEA Numerical Evaluations
-Scripts for numerical evaluations for the GENEA Gesture Generation Challenge:
-
-https://genea-workshop.github.io/2020/#gesture-generation-challenge
+Scripts for numerical evaluations for the GENEA Gesture Generation Challenge 2022:
+https://genea-workshop.github.io/2022/challenge/
 
 This directory provides the scripts for quantitative evaluation of our gesture generation framework. We currently support the following measures:
 - Average Jerk and Acceleration (AJ)
@@ -13,7 +12,7 @@ This directory provides the scripts for quantitative evaluation of our gesture g
 
 ## Obtain the data
 
-Download the 3D coordinates of the GENEA Challenge systems at https://zenodo.org/record/4088319 .
+Download the 3D coordinates of the GENEA Challenge 2022 systems at PUT_URL_HERE .
 Create a `data` folder and put challenge system motions there as in `data/Cond_X`.
 
 ## Run
