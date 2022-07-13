@@ -28,7 +28,7 @@ To calculate AJ, you can use `calk_jerk_or_acceleration.py`.
 
 ```sh
 # Compute AJ
-python calk_jerk_or_acceleration.py -m jerk -g your_prediction_dir
+python calk_jerk_or_acceleration.py -m jerk -c your_prediction_dir
 ```
 
 Note: `calk_jerk_or_acceleration.py` computes AJ for both original and predicted gestures. The AJ of the original gestures will be stored in `result/original` by default. The AJ of the predicted gestures will be stored in `result/your_prediction_dir`.
@@ -37,7 +37,7 @@ The same script can be used to calculate average acceleration (AA):
 
 ```sh
 # Compute AA
-python calk_jerk_or_acceleration.py -m acceleration -g your_prediction_dir
+python calk_jerk_or_acceleration.py -m acceleration -c your_prediction_dir
 ```
 
 
@@ -51,13 +51,13 @@ In addition, this script supports histogram visualization. To enable visualizati
 
 ```sh
 # Compute velocity histogram
-python calc_distance.py -g your_prediction_dir -m velocity -w 0.05  # You can change the bin width of the histogram
+python calc_histogram.py -c your_prediction_dir -m velocity -w 0.05  # You can change the bin width of the histogram
 
 # Compute acceleration histogram
-python calc_distance.py -g your_prediction_dir -m acceleration -w 0.05
+python calc_histogram.py -c your_prediction_dir -m acceleration -w 0.05
 ```
 
-Note: `calc_distance.py` computes HMD for both original and predicted gestures. The HMD of the original gestures will be stored in `result/original` by default.
+Note: ` calc_histogram.py` computes HMD for both original and predicted gestures. The HMD of the original gestures will be stored in `result/original` by default.
 
 ### Hellingere distance
 
