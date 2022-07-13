@@ -40,8 +40,8 @@ def compute_jerks(data, dim=3):
 
     average = np.mean(jerk_norms, axis=0)
 
-    # Take into account that frame rate was 20 fps
-    scaled_av = average * 20 * 20 * 20
+    # Take into account that frame rate was 30 fps
+    scaled_av = average * 30 * 30 * 30
 
     return scaled_av
 
@@ -73,8 +73,8 @@ def compute_acceleration(data, dim=3):
 
     average = np.mean(acc_norms, axis=0)
 
-    # Take into account that frame rate was 20 fps
-    scaled_av = average * 20 * 20
+    # Take into account that frame rate was 30 fps
+    scaled_av = average * 30 * 30
 
     return scaled_av
 
@@ -194,8 +194,9 @@ if __name__ == '__main__':
         print('AA:')
 
     for cond_name in os.listdir(args.coords_dir):
-        if cond_name == "GT":
+        if cond_name == ".DS_Store":
             continue
+        #print(cond_name)
         evaluate_folder(cond_name, args.coords_dir, args.measure)
 
     print('More detailed result was writen to the files in the "result" folder ')

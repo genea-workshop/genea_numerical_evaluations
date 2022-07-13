@@ -50,11 +50,11 @@ def natural_sort(l, key=natural_sort_key):
 def main():
     parser = argparse.ArgumentParser(
         description='Calculate histograms of moving distances')
-    parser.add_argument('--original', default='result/GT',
+    parser.add_argument('--original', default='resulting/UNA',
                         help='Original gesture directory')
-    parser.add_argument('--predicted', '-p', default='result/',
+    parser.add_argument('--predicted', '-p', default='resulting/',
                         help='Predicted gesture directory')
-    parser.add_argument('--file', '-f', default='hmd_vel_1.csv',
+    parser.add_argument('--file', '-f', default='hmd_vel_0.05.csv',
                         help='File name to load')
     parser.add_argument('--select', '-s', nargs='+',
                         help='Joint subset to compute (if omitted, use all)')
@@ -75,8 +75,8 @@ def main():
         original_val = pd.read_csv(hist_path, header=None, skiprows=1)
         original_array = np.array(original_val)
 
-        # Calculate histograms for wrists and normalize it
-        actual_hist = (original_array[:, -2] + original_array[:, -5]) / original_array[:, -1]
+        # Take average histogram
+        actual_hist = original_array[:, -1]
 
         return actual_hist
 

@@ -63,7 +63,7 @@ def evaluate_folder(cond_name, coords_dir):
     """
 
     cond_dir = os.path.join(coords_dir, cond_name)
-    gt_dir = os.path.join(coords_dir, "GT")
+    gt_dir = os.path.join(coords_dir, "UNA")
 
     generated_files = sorted(glob.glob(os.path.join(cond_dir, '*.npy')))
 
@@ -96,8 +96,8 @@ def evaluate_folder(cond_name, coords_dir):
     cca_model = find_CCA_scaling_vectors(all_predicted_frames, all_ground_tr_frames)
 
     # calculate Global CCA value
-    #global_cca_value = calculate_CCA_score(all_predicted_frames, all_ground_tr_frames, cca_model)
-    #print('{:s} Global CCA value: {:.5f}'.format(cond_name, global_cca_value))
+    global_cca_value = calculate_CCA_score(all_predicted_frames, all_ground_tr_frames, cca_model)
+    print('{:s} Global CCA value: {:.5f}'.format(cond_name, global_cca_value))
 
 
     # calculate CCA value for each sequence
@@ -118,6 +118,9 @@ def evaluate_folder(cond_name, coords_dir):
 
         # calculate CCA value
         current_cca_value = calculate_CCA_score(original_coords, predicted_coords, cca_model)
+
+        if np.isnan(current_cca_value):
+            continue
 
         predicted_errors.append(current_cca_value)
 
@@ -159,4 +162,7 @@ if __name__ == '__main__':
     print('CCA:')
 
     for cond_name in os.listdir(args.coords_dir):
+        if cond_name == ".DS_Store":
+            continue
+        print(cond_name)
         evaluate_folder(cond_name, args.coords_dir)

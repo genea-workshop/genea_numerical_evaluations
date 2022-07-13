@@ -16,7 +16,7 @@ def find_CCA_scaling_vectors(input_array_one, input_array_two):
         """
 
     # Define CCA model which considers the first CCA coefficient only
-    cca_model = CCA(n_components=1)
+    cca_model = CCA(n_components=1, max_iter=1500)
     # Fit CCA model to the given data
     cca_model.fit(input_array_one, input_array_two)
     # Encode the given arrays into 1D space using the CCA linear transform
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     n = 10000
     X = np.random.randint(1,11,(n,42))
-    Y = np.random.randint(0,15,(n,42)) + X*0.005 + 7
+    Y = np.random.randint(0,15,(n,42)) + X*0.8 + 0.7
 
     CCA_model = find_CCA_scaling_vectors(X,Y)
 

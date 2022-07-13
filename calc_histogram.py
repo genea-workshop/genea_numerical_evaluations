@@ -44,8 +44,8 @@ def compute_velocity(data, dim=3):
             x2 = j * dim + dim
             vel_norms[i, j] = np.linalg.norm(vels[i, x1:x2])
 
-    # multiply on 20 to compensate for the time-frame being  0.05s
-    return vel_norms * 20
+    # multiply on 30 to compensate for the time-frame being  0.03s
+    return vel_norms * 30
 
 
 def compute_acceleration(data, dim=3):
@@ -74,8 +74,8 @@ def compute_acceleration(data, dim=3):
             x2 = j * dim + dim
             acc_norms[i, j] = np.linalg.norm(accs[i, x1:x2])
 
-    # multiply on 20 to compensate for the time-frame being  0.05s
-    return acc_norms * 20 * 20
+    # multiply on 30 to compensate for the time-frame being  0.03s
+    return acc_norms * 30 * 30
 
 
 def save_result(lines, out_dir, width, measure):
@@ -135,7 +135,7 @@ def make_histogram(cond_name, measure, coord_dir, out_dir, visualize=True, width
     predicted_distances = []
     for predicted_file in predicted_files:
         # read the values and remove hips which are fixed
-        predicted_coords = np.load(predicted_file)[:, 2:]
+        predicted_coords = np.load(predicted_file)[:, 8:]
 
         predicted_distance = measures[measure](predicted_coords)  # [:, selected_joints]
 
@@ -144,7 +144,7 @@ def make_histogram(cond_name, measure, coord_dir, out_dir, visualize=True, width
     predicted_distances = np.concatenate(predicted_distances)
 
     # Compute histogram for each joint
-    bins = np.arange(0, 59 + width, width)
+    bins = np.arange(0, 49 + width, width)
     num_joints = predicted_distances.shape[1]
     predicted_hists = []
     for i in range(num_joints):
@@ -209,6 +209,8 @@ def main():
         exit(-1)
 
     for cond_name in os.listdir(args.coords_dir):
+        if cond_name == ".DS_Store":
+            continue
         print("\nConsider", cond_name)
         make_histogram(cond_name, args.measure, args.coords_dir, args.out_dir, args.visualize, args.width)
 
