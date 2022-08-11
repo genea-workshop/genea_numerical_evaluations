@@ -12,8 +12,8 @@ This directory provides the scripts for quantitative evaluation of our gesture g
 
 ## Obtain the data
 
-Download the 3D coordinates of the GENEA Challenge 2022 systems at PUT_URL_HERE .
-Create a `data` folder and put challenge system motions there as in `data/Cond_X`.
+Download the 3D coordinates of the GENEA Challenge 2022 systems at https://zenodo.org/record/6973297 .
+Create a `data` folder and put challenge system motions there as in `data/UBA`.
 
 ## Run
 
