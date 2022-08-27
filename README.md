@@ -59,7 +59,7 @@ python calc_histogram.py -c your_prediction_dir -m acceleration -w 0.05
 
 Note: ` calc_histogram.py` computes HMD for both original and predicted gestures. The HMD of the original gestures will be stored in `result/original` by default.
 
-### Hellingere distance
+### Hellinger distance
 
 Hellinger distance indicates how close two histograms are to each other.
 
