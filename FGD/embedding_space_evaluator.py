@@ -17,13 +17,11 @@ class EmbeddingSpaceEvaluator:
         self.net.load_state_dict(ckpt['gen_dict'])
         self.net.train(False)
 
-        # storage
-        self.real_samples = []
-        self.generate_samples = []
-        self.real_feat_list = []
-        self.generated_feat_list = []
+        self.reset()
 
     def reset(self):
+        self.real_samples = []
+        self.generate_samples = []
         self.real_feat_list = []
         self.generated_feat_list = []
 

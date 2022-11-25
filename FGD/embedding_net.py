@@ -33,8 +33,8 @@ class PoseEncoderConv(nn.Module):
         super().__init__()
 
         self.net = nn.Sequential(
-            ConvNormRelu(dim, 32, batchnorm=True),
-            ConvNormRelu(32, 64, batchnorm=True),
+            ConvNormRelu(dim, 128, batchnorm=True),
+            ConvNormRelu(128, 64, batchnorm=True),
             ConvNormRelu(64, 64, True, batchnorm=True),
             nn.Conv1d(64, 32, 3)
         )
@@ -120,7 +120,7 @@ class EmbeddingNet(nn.Module):
 
 if __name__ == '__main__':  # model test
     n_frames = 90
-    pose_dim = 42
+    pose_dim = 174
     encoder = PoseEncoderConv(pose_dim, n_frames)
     decoder = PoseDecoderConv(pose_dim, n_frames)
 

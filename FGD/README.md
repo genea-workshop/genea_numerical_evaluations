@@ -1,52 +1,69 @@
 ## Fréchet Gesture Distance (FGD)
 
-Scripts to calculate FGD for the GENEA Gesture Generation Challenge 2020 submissions.
+Scripts to calculate FGD for the GENEA Gesture Generation Challenge 2022 submissions.
 We follow the FGD implementation in [Speech Gesture Generation from the Trimodal Context of Text, Audio, and Speaker Identity (ACM TOG, 2020)](https://arxiv.org/abs/2009.02119).
 
 ### Environment
-* Ubuntu 18.04, Python 3.6, Pytorch 1.7.1
+* Ubuntu 18.04, Python 3.6, Pytorch 1.8.0
 
 ### Run
-1. Prepare data. Put Trinity Gesture Dataset on `data/Trinity`, which will be used to train an autoencoder. Put challenge system results on `data/Cond_??`. 
-2. Train an autoencoder. You can set `n_frames` in `train_AE.py` to change the number of frames in a sample. 
+1. Train an autoencoder. You can set `n_frames` in `train_AE.py` to change the number of frames in a sample. 
    ```bash
-   $ python train_AE.py
+   $ python FGD/train_AE.py
    ```
-3. Calculate FGD.
+2. Calculate FGD.
    ```bash
-   $ python evaluate_FGD.py
+   $ python FGD/evaluate_FGD.py
    ```
 
 ### Results
 The FGD values for three different `n_frames=30,60,90`. We also report FGD on raw data space similar to the one used in [No Gestures Left Behind: Learning Relationships between Spoken Language and Freeform Gestures (EMNLP Findings 2020)](https://www.aclweb.org/anthology/2020.findings-emnlp.170.pdf). Lower FGD is better.
+
+Autoencoder checkpoints are available [here (to be uploaded)](). 
+
+**Results for the full-body tier**
 ```text
------ EXP (n_frames: 30) -----
-FGD on feature space and raw data space
-Cond_BA: 12.989, 343.584
-Cond_BT: 35.315, 395.650
-Cond_SA: 21.402, 175.214
-Cond_SB: 19.480, 167.150
-Cond_SC:  9.970, 119.424
-Cond_SD:  4.778, 106.149
-Cond_SE: 11.086, 112.048
+----- Experiment (motion chunk length: 30) -----
+FGDs on feature space and raw data space
+FBT:   28.645, 8415.563
+FNA:   -0.000,   -0.012
+FSA:    3.175, 1345.204
+FSB:   16.266, 9925.688
+FSC:   16.366, 3647.519
+FSD:   43.434, 9871.901
+FSF:    7.490, 1718.182
+FSG:   10.057, 2410.368
+FSH:    4.024,  854.327
+FSI:    4.865, 2041.908
 
------ EXP (n_frames: 60) -----
-FGD on feature space and raw data space
-Cond_BA: 12.986, 718.180
-Cond_BT: 30.301, 817.556
-Cond_SA: 21.654, 393.294
-Cond_SB: 19.016, 374.749
-Cond_SC:  9.410, 277.185
-Cond_SD:  4.120, 246.324
-Cond_SE: 10.854, 256.386
+----- Experiment (motion chunk length: 60) -----
+FGDs on feature space and raw data space
+FBT:   46.267, 17105.831
+FNA:    0.000,   -0.081
+FSA:    5.155, 2946.741
+FSB:   29.422, 20356.742
+FSC:   24.778, 7506.545
+FSD:   39.925, 19943.333
+FSF:   13.919, 3682.961
+FSG:    9.804, 5221.833
+FSH:    3.258, 1844.664
+FSI:   13.745, 4183.702
 
------ EXP (n_frames: 90) -----
-FGD on feature space and raw data space
-Cond_BA: 11.777, 1126.280
-Cond_BT: 27.311, 1272.092
-Cond_SA: 18.155, 658.897
-Cond_SB: 17.559, 633.881
-Cond_SC:  8.641, 477.692
-Cond_SD:  3.620, 428.553
-Cond_SE:  9.952, 442.145
+----- Experiment (motion chunk length: 90) -----
+FGDs on feature space and raw data space
+FBT:   19.866, 25725.445
+FNA:    0.000,   -0.200
+FSA:    4.410, 4810.428
+FSB:   14.919, 31158.921
+FSC:   17.307, 11494.462
+FSD:   19.973, 30142.942
+FSF:    8.901, 5848.064
+FSG:    9.643, 8272.341
+FSH:    3.085, 2958.145
+FSI:    4.807, 6450.567
+```
+
+**Results for the upper-body tier**
+```
+to be updated
 ```
