@@ -65,5 +65,45 @@ FSI:    4.807, 6450.567
 
 **Results for the upper-body tier**
 ```
-to be updated
+----- Experiment (motion chunk length: 30) -----
+FGDs on feature space and raw data space
+UBA:   16.952, 9477.682
+UBT:   18.191, 7497.609
+UNA:    0.000,   -0.010
+USJ:    4.834, 2307.812
+USK:   15.472, 2887.649
+USL:   28.435, 6715.159
+USM:    2.171, 1008.365
+USN:  194.180, 33632.683
+USO:   16.432, 3117.656
+USP:   17.955, 8462.732
+USQ:    2.841, 1089.384
+
+----- Experiment (motion chunk length: 60) -----
+FGDs on feature space and raw data space
+UBA:   11.494, 19120.322
+UBT:   16.079, 15269.160
+UNA:    0.000,   -0.072
+USJ:    4.618, 4711.649
+USK:   14.929, 5920.969
+USL:   26.198, 13519.083
+USM:    1.658, 2203.772
+USN:  170.753, 67444.063
+USO:   16.062, 6424.674
+USP:   16.708, 17377.555
+USQ:    2.536, 2400.012
+
+----- Experiment (motion chunk length: 90) -----
+FGDs on feature space and raw data space
+UBA:   10.639, 28869.044
+UBT:   12.363, 22969.446
+UNA:    0.000,   -0.181
+USJ:    4.463, 7222.822
+USK:   14.196, 9051.976
+USL:   22.885, 20369.668
+USM:    1.127, 3558.372
+USN:   35.853, 101443.302
+USO:   15.005, 9844.623
+USP:   11.006, 26615.193
+USQ:    2.502, 3935.777
 ```
